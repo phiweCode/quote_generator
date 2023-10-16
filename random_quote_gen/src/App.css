@@ -1,0 +1,21 @@
+.sidebar-section{
+
+    display: flex;
+    flex-direction: grid;
+    grid-template-columns: 1fr 2fr;
+    
+    width: 100vw;
+    background-color: yellow;
+}
+
+#sidebar{
+    background-color: tomato;
+    min-width: 20vw;
+}
+
+#quote-box
+{
+    background-color: yellowgreen;
+    height: 100vh;
+    min-width: 80vw;
+}
