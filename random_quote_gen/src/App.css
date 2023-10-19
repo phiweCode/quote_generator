@@ -1,21 +1,33 @@
-.sidebar-section{
+@import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
 
-    display: flex;
-    flex-direction: grid;
-    grid-template-columns: 1fr 2fr;
-    
-    width: 100vw;
-    background-color: yellow;
+#container {
+  margin: 1rem;
 }
 
-#sidebar{
-    background-color: tomato;
-    min-width: 20vw;
+.items {
+  margin-bottom: 1rem;
 }
 
-#quote-box
-{
-    background-color: yellowgreen;
-    height: 100vh;
-    min-width: 80vw;
-}
+    .sidebar-section{
+
+        display: flex;
+        flex-direction: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-gap: 10px;
+
+        width: 100vw;
+        background-color: yellow;
+    }
+
+    #sidebar{
+        background-color: tomato;
+        min-width: 20vw;
+    }
+
+    #quote-box
+    {
+        background-color: yellowgreen;
+        height: 100vh;
+        min-width: 80vw;
+        margin-left: 10px;
+    }

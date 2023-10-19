@@ -9,11 +9,12 @@ import Sidebar from './Layouts/Sidebar';
 //pages
 import Landing from './pages/landing'
 import AuthorQuotes from './pages/AuthorQuotes'
-import QuotesByCat from './pages/QuotesByCat'
+
 
 //actions
 import { loader as sidebarLoader } from './Layouts/Sidebar'
 import { loader as authorLoader }  from './pages/AuthorQuotes'
+import QuoteTags, { loader as tagLoader } from './pages/QuotesByTag'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,13 +23,14 @@ const router = createBrowserRouter(
       <Route path='/' loader={sidebarLoader} element={<Sidebar />}>
         <Route index element={<Landing />} />
         <Route path="authorquotes/:slug" loader={authorLoader} element={<AuthorQuotes />} />
-        <Route path='quotesbycategory' element={<QuotesByCat />} />
+        <Route path='quotestags/:tags' loader={tagLoader} element={<QuoteTags />} />
       </Route>
     </Route>))
 
 function App()
 {
   return (
+
       <RouterProvider router={router}/>
   )
 }

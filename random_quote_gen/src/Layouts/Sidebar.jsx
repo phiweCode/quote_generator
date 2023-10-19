@@ -1,66 +1,122 @@
-import React, { useState, useEffect } from 'react'
-import { Outlet, NavLink, Link, useLoaderData } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState, useEffect, Fragment } from "react";
+import { Outlet, NavLink, Link, useLoaderData } from "react-router-dom";
+import axios from "axios";
+import AuthorsList from "../components/authorsList";
 
-export const loader = async () => {
+//From redux api
+import { useGetAuthorsQuery , useGetTagsQuery } from '../features/api/apiSlice'
 
-    const authors = await axios.get('https://api.quotable.io/authors')
-    const quotes = await axios.get('https://api.quotable.io/tags')
-    const res = [authors, quotes]
-    console.log("response object", res)
-    return res
+//bootstrap
+import { Accordion, ListGroup } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
+import Card from 'react-bootstrap/Card'
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
+//loaders
+
+export const loader = () => {
+  return 5;
 }
 
+//paginantion
+import PaginatedItems from '../components/pagination';
+
+//accordion utility function
+export function CustomToggle({ children, eventKey })
+{
+  const decoratedOnClick = useAccordionButton(eventKey, () =>console.log(),);
+  return (<h5 type="button" onClick={decoratedOnClick}>{children}</h5>);
+}
+
+
+//returned func
 function Sidebar() {
-    const authors = useLoaderData()[0].data
-    const category = useLoaderData()[1].data
 
-    console.log("authors", authors)
-    console.log("category", category)
+    const {data: authors , isLoading: authorLoading} = useGetAuthorsQuery()
+    const {data: category, isLoading: categoryLoading } = useGetTagsQuery()
 
-    return (
+    console.log("Authors",authors)
+    console.log("Category:", category)
+
+
+    if (!authors || !category) {
+      return(
         <div>
-            <section className='sidebar-section'>
-
-                {/* Side bar */}
-                <div id='sidebar' className=''>
-                    <h2> Sidebar</h2>
-
-                    <h3><NavLink to='/'> Random </NavLink></h3>
-
-                    <h3> <NavLink to='/authorquotes'> AuthorQuotes </NavLink> </h3>
-                    <ul>
-                    {authors.results.map((res) => {
-                        return (
-                            <>
-                            <Link to={"/authorquotes/"+res.slug}>
-                             <li key={res._id}>{res.name} <span> {res.quoteCount}</span></li>
-                             </Link>
-                            </>)
-                    })}
-                    </ul>
-
-                    <hr/>
-                    <h3> <NavLink to='/quotesbycategory'> Quotes by category </NavLink> </h3>
-                    <ul>
-                    {category.map((res) => {
-                        return (
-                            <>
-                            <li key={res._id}>{res.name}<span> {res.quoteCount}</span></li>
-                            </>)
-                    })}
-                    </ul>
-                </div>
-
-                {/* main content */}
-                <div id='main-content'>
+          <section className="sidebar-section">
+          <div id="sidebar" className="">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+            <div id="main-content">
                     <Outlet />
-                </div>
+            </div>
+          </section>
+      </div>); // You can replace this with a loading indicator
+  }
+    return (
 
+          <div>
+            <section className="sidebar-section">
+              {/* Side bar */}
+              <div id="sidebar" className="">
+
+                  <br/>
+                  {/** Random quotes */}
+                  <Card>
+                    <CustomToggle eventKey="0">
+                      <h4><NavLink to="/"> Random </NavLink></h4>
+                    </CustomToggle>
+                  </Card>
+
+                  <br />
+
+                  <Accordion defaultActiveKey="0">
+                    {/** Accordion  */}
+                    <Card>
+
+                      <Card.Header>
+                          <CustomToggle eventKey="0"> Authors </CustomToggle>
+                      </Card.Header>
+
+                      <Accordion.Collapse eventKey="0">
+                          <ListGroup as="ol" numbered>
+                         {authors.results.map((data)=> {
+                            return(
+                              <li>{data.name}</li>
+                            )
+                          })}
+                          </ListGroup>
+                      </Accordion.Collapse>
+                    </Card>
+
+                    <br />
+
+                    <Card>
+                      <Card.Header>
+                          <CustomToggle eventKey="1"> Category </CustomToggle>
+                      </Card.Header>
+
+                      <Accordion.Collapse eventKey="1">
+                          <ListGroup as="ol" numbered>
+                                 {category.map((data)=>
+                                  {
+                                    return <li> {data.name}</li>
+                                  })}
+                          </ListGroup>
+                      </Accordion.Collapse>
+                    </Card>
+                  </Accordion>
+              </div>
+
+              {/* main content */}
+              <div id="main-content">
+                  <Outlet />
+              </div>
             </section>
-        </div>
-    )
-}
+          </div>
 
-export default Sidebar
+          );
+
+}
+export default Sidebar;

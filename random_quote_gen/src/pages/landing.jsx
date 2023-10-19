@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Accordion from 'react-bootstrap/Accordion';
 import axios from 'axios'
 
 
@@ -17,9 +18,7 @@ function Landing() {
             setNextQuote(!nextQuote)
         }
     },[nextQuote])
-
-    console.log('response', response)
-
+    
     return (
         <div>
             <section id='quote-box'>
