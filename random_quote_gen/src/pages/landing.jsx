@@ -18,7 +18,7 @@ function Landing() {
             setNextQuote(!nextQuote)
         }
     },[nextQuote])
-    
+
     return (
         <div>
             <section id='quote-box'>

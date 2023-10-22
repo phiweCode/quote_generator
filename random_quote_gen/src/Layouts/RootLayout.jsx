@@ -15,9 +15,9 @@ function RootLayout() {
               </Form>
           </div>
       </header>
-      <main id='main-section'>
+    <main id='main-section'>
         <Outlet />
-      </main>
+  </main>
     </div>
   )
 }

@@ -17,25 +17,23 @@ function QuoteTags() {
 
   return (
     <Fragment>
-
       <h2>Quotes by Tags</h2>
 
-     <div>
-
-      <ul>
-       {quotes.results.map((quote)=>{
-
-        return(
-        <li>
-          <div>
-              <p>{quote.content} </p>
-
-          </div>
-          <span> {quote.author}</span>
-        </li>)
-       })}
-      </ul>
+      <div>
+        <ul>
+        {quotes.results.map((quote)=>{
+          return(
+          <li>
+            <div>
+                <p>{quote.content} </p>
+            </div>
+            <span> {quote.author}</span>
+          </li>
+          )
+        })}
+        </ul>
       </div>
+
     </Fragment>
   )
 }

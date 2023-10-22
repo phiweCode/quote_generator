@@ -15,6 +15,7 @@ import AuthorQuotes from './pages/AuthorQuotes'
 import { loader as sidebarLoader } from './Layouts/Sidebar'
 import { loader as authorLoader }  from './pages/AuthorQuotes'
 import QuoteTags, { loader as tagLoader } from './pages/QuotesByTag'
+import SearchResults from './pages/SearchResults';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,13 +25,13 @@ const router = createBrowserRouter(
         <Route index element={<Landing />} />
         <Route path="authorquotes/:slug" loader={authorLoader} element={<AuthorQuotes />} />
         <Route path='quotestags/:tags' loader={tagLoader} element={<QuoteTags />} />
+        <Route path='search' element={<SearchResults />} /> 
       </Route>
     </Route>))
 
 function App()
 {
   return (
-
       <RouterProvider router={router}/>
   )
 }

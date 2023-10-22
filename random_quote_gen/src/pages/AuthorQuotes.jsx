@@ -16,8 +16,6 @@ export const loader = async ({params}) =>
 
 function AuthorQuotes() {
 
-
-
   const authorDetails = useLoaderData()[0]
   const authorImg = useLoaderData()[1]
   const quotesList = useLoaderData()[2]

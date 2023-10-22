@@ -1,34 +1,45 @@
-import React, { useLayoutEffect } from 'react'
-import { useGetAuthorsQuery, useGetTagsQuery } from '../features/api/apiSlice'
-import { useLoaderData } from 'react-router-dom'
+import { Accordion, ListGroup } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
+import { Link } from 'react-router-dom'
 
-let authors = {}
-let category = {}
+function ListData({authors, heading, paths}) {
 
-export const loader = () =>
-{
-   return [authors, category]
-}
-
-function AuthorsList() {
-
-   authors = useGetAuthorsQuery().data
-   category = useGetTagsQuery().data
-
-   let test = useLoaderData()[0]
-
-  console.log("Authors from component", authors.results)
-
+  console.log("From the authors list component ",authors)
 
   return (
     <div>
-     {authors.results.map((data)=> {
-      return(
-        <li>{data.name}</li>
-      )
-    })}
+    <div className="author-sidebar-container rounded-0 min-vh-40">
+
+    <div className="author-sidebar-header">
+        {heading}
     </div>
+
+    <div className="author-sidebar-list">
+
+    <ListGroup as="ol" numbered>
+    {authors.map((data)=> {
+        return(
+          <Link to={`${paths}${data.slug}`}>
+
+                <ListGroup.Item
+                as="li"
+                className="d-flex border-0  justify-content-between align-items-start"
+              >
+                  <div className="sidebar-item h-40 overflow-auto ms-2 me-auto">
+                  <li> {data.name}  </li>
+                  </div>
+                  <Badge bg="secondary">{data.quoteCount}</Badge>
+              </ListGroup.Item>
+
+          </Link>
+            )
+          })}
+          </ListGroup>
+    </div>
+
+  </div>
+  </div>
   )
 }
 
-export default AuthorsList
+export default ListData;
