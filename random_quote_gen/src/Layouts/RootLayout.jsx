@@ -1,24 +1,16 @@
 import React from 'react'
 import { Form, Outlet } from 'react-router-dom'
+import NavbarComponent from '../components/navCmp'
 
 function RootLayout() {
   return (
-    <div>
-      <header id='main-header'>
-          <div id='logo-section'>
-              <h1>LOGO</h1>
-          </div>
-          <div id='search-bar-section'>
-              <Form method='post'>
-                  <input type='text' name='search' placeholder='Enter search here' />
-                  <button type='submit'>search</button>
-              </Form>
-          </div>
-      </header>
-    <main id='main-section'>
-        <Outlet />
-  </main>
-    </div>
+
+      <div className='row root'>
+      <NavbarComponent />
+        <main id='main-section col-lg-12'>
+            <Outlet />
+        </main>
+      </div>
   )
 }
 

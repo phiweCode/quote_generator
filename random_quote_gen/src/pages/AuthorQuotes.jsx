@@ -1,55 +1,68 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useLoaderData, useParams } from 'react-router-dom'
-import axios from 'axios'
-
+import { useGetAuthorDetailsQuery} from '../features/api/apiSlice'
 
 export const loader = async ({params}) =>
 {
-  const authorDetails = await axios.get(`https://api.quotable.io/authors/slug/${params.slug}`)
   const imgUrl = `https://images.quotable.dev/profile/200/${params.slug}.jpg`
-  const authorQuotes = await axios.get(`https://api.quotable.io/quotes?author=${authorDetails.data.name}`)
-  console.log("These are the author details", authorQuotes.data.results)
-  const authorQuotesList = authorQuotes.data.results
-  return [authorDetails.data, imgUrl, authorQuotesList]
+  return imgUrl
 }
 
+function AuthorQuotes()
+  {
+    const slug = useParams().slug
+    //Getting Author details by slug
+    const {
+    data: authorDetailsData,
+    error: authorDetailsErr,
+    isError: isAuthorDetailsErr,
+    isLoading: isAuthorDetailsLoading,
+    isSuccess: isAuthorDetailsSuccess,
+    isUnitialized: isAuthorDetailsUnitialized,
+    } = useGetAuthorDetailsQuery(slug)
 
-function AuthorQuotes() {
+    const displayAuthorDetailsResponse = () => console.log("Get author details response",
+    authorDetailsData,"authorDetailsData \n",
+    authorDetailsErr, "authorDetailsErr \n",
+    isAuthorDetailsErr, "isAuthorDetailsErr \n",
+    isAuthorDetailsLoading, "isAuthorDetailsIsLoading \n",
+    isAuthorDetailsSuccess, "isAuthorDetailsSuccess \n",
+    isAuthorDetailsUnitialized, "isAuthorDetailsUnitialized \n",
+    )
 
-  const authorDetails = useLoaderData()[0]
-  const authorImg = useLoaderData()[1]
-  const quotesList = useLoaderData()[2]
+    if(isAuthorDetailsLoading)
+    {
+      return <p>Loading....</p>
+    }
 
-  console.log("useParams data", authorDetails)
-  return (
-    <section className='author-section'>
+    const authorDetails = authorDetailsData;
+    const authorImg = useLoaderData();
+    const quotesList = authorDetailsData.quotes;
 
-      <div className='author-bio'>
-          <div className='author-div'>
-            <img src={authorImg} />
+    displayAuthorDetailsResponse()
+
+    return (
+        <section className='author-section outlet container'>
+          <div className='author-bio row mb-3'>
+              <div className='author-div col-lg-3'>
+                <img src={authorImg} className='img-fluid' />
+              </div>
+
+              <div className='author-details col-lg-8 '>
+                <span className='fs-2 fw-bold text-primary text-uppercase '> {authorDetails.name} </span>
+                <p className='fs-6 author-p '>{authorDetails.bio}</p>
+                <p className="fs-5 fw-bold text-dark">{authorDetails.description} </p>
+              </div>
           </div>
 
-          <div className='author-details'>
-            <h2> {authorDetails.name} </h2>
-            <p>
-            {authorDetails.bio}
-            </p>
-            <h3>{authorDetails.description} </h3>
+          <p className="fs-4 "> Returned results <span className='btn btn-primary fs-6'>{authorDetails.quoteCount}</span></p>
 
-            <span> Returned results {authorDetails.quoteCount}</span>
+          <div className='author-quotes row mw-5'>
+            <ol>
+              <p> {quotesList.map(quote=> <li className="mb-2 ml-9"> {quote.content} </li>)}</p>
+            </ol>
           </div>
-
-      </div>
-
-        <div className='author-quotes'>
-
-        <ul>
-
-        </ul>
-            <p> {quotesList.map(quote=> <li> {quote.content} </li>)}</p>
-        </div>
-      </section>
-  )
-}
+        </section>)
+  }
 
 export default AuthorQuotes;

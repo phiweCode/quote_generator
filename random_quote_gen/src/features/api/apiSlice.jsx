@@ -17,27 +17,23 @@ export const apiSlice = createApi(
                 query: (slug)=> `/authors/slug/${slug}`
             }),
             getAuthorQuotes: builder.query({
-                query: (author)=> `https://api.quotable.io/quotes?author=${author}`
+                query: (author)=> `/quotes?author=${author}`,
+                //transformResponse: (response, meta, arg) => response.results.data,
             }),
-            getQuoteByTag: (tag)=> `https://api.quotable.io/quotes?tags=${tag}`
+            getQuoteByTag: builder.query({
+                query: (tag)=> `/quotes?tags=${tag}`
+            }),
+            getRandomQuote: builder.query({
+                query: (slug) => `/random`,
+            })
             })
     });
 
-    export const { useGetAuthorsQuery, useGetTagsQuery, useGetAuthorDetailsQuery, useGetAuthorQuotesQuerry } = apiSlice
-
-
-
-    export const apiImgSplice = createApi({
-        reducerPath: 'api',
-        baseQuery: fetchBaseQuery({
-            baseUrl: 'https://images.quotable.dev/profile/200/',
-        }),
-        endpoints: (builder)=>({
-            getAuthorImg: builder.query({
-                query: (slug)=>`/${size}/${slug}.jpg`
-            })
-        })
-    })
-
-
-    export const { useGetAuthorImg } = apiImgSplice
+    export const {
+                    useGetAuthorsQuery,
+                    useGetTagsQuery,
+                    useGetAuthorDetailsQuery,
+                    useGetAuthorQuotesQuery,
+                    useGetQuoteByTagQuery,
+                    useLazyGetRandomQuoteQuery,
+                 } = apiSlice;
