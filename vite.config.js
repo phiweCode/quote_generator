@@ -10,5 +10,5 @@ export default defineConfig({
     },
     port: 3000,
   },
-  base: "/quote_generator/random_quote_gen/",
+  base: "/quote_generator/",
 })
