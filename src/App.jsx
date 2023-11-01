@@ -20,8 +20,8 @@ import SearchResults, {loader as searchQuotesLoader} from './pages/SearchResults
 const router = createBrowserRouter(
   createRoutesFromElements(
 
-    <Route path='/' element={<RootLayout />}>
-      <Route path='/' loader={sidebarLoader} element={<Sidebar />}>
+    <Route path='/quote_generator/' element={<RootLayout />}>
+      <Route path='/quote_generator/' loader={sidebarLoader} element={<Sidebar />}>
         <Route index element={<Landing />} />
         <Route path="authorquotes/:slug" loader={authorLoader} element={<AuthorQuotes />} />
         <Route path='quotestags/:tags'  element={<QuoteTags />} />

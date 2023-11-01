@@ -43,7 +43,7 @@ function NavbarComponent() {
             <Navbar.Brand href="#">
             <div id='logo-section' className='logo-container text-center'>
               <div className='text-primary text-center bg-success w-100 logo-div'>
-                  <NavLink to="/">
+                  <NavLink to="/quote_generator">
                   <img src='../public/logo2.png' className='img-fluid' />
                   </NavLink>
                 </div>
