@@ -65,7 +65,7 @@ function NavbarComponent() {
               </Offcanvas.Header>
 
               <Offcanvas.Body className="nav-body">
-                <Form method='Get' action='/search'>
+                <Form method='Get' action='/quote_generator/search'>
                   <div className='search-container input-group input-group-sm w-lg-100'>
                   <input aria-label="search quotes" className='form-control me-2 w-lg-100 ' type='search' name='search' />
                   <Button type='submit' className='outline-success' variant="outline-primary" >Search</Button>

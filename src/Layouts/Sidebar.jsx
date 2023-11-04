@@ -63,7 +63,7 @@ function Sidebar() {
               <div id="sidebar" className="bg-dark d-sm-none d-md-none d-lg-grid">
                   <br/>
                   {/** Random quotes */}
-                    <NavLink to="/">
+                    <NavLink to="/quote_generator/">
                       <Card className="rounded-2 bg-primary border-0">
                         <Card.Header className="d-flex border-0 justify-content-between align-items-start">
                         <div className="sidebar-item text-white ms-2 me-auto fs-5 fw-bold">
@@ -79,7 +79,7 @@ function Sidebar() {
                       </Card>
                     </NavLink>
                   <br />
-                  
+
                   <ListData authors={authors.results} heading={'Authors'} paths="authorquotes/"/>
                   <br />
                   <ListData authors={category} heading={'Category'} paths="quotestags/"/>

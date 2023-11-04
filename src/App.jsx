@@ -25,7 +25,7 @@ const router = createBrowserRouter(
         <Route index element={<Landing />} />
         <Route path="authorquotes/:slug" loader={authorLoader} element={<AuthorQuotes />} />
         <Route path='quotestags/:tags'  element={<QuoteTags />} />
-        <Route path='search' loader={searchQuotesLoader} element={<SearchResults />} />
+        <Route path='search/' loader={searchQuotesLoader} element={<SearchResults />} />
       </Route>
     </Route>))
 
